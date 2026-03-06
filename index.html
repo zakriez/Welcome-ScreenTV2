@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MODENAS Welcome Page - Large Logo Edition</title>
+    <title>MODENAS Welcome Page - Full Icons</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -42,7 +42,7 @@
             z-index: 1;
         }
 
-        /* Logo Diperbesarkan Lagi */
+        /* Logo Diperbesarkan */
         .logo-container {
             position: relative;
             z-index: 10;
@@ -52,7 +52,7 @@
         }
 
         .logo {
-            width: 45vw; /* Saiz logo ditingkatkan */
+            width: 45vw;
             max-width: 800px;
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.7));
         }
@@ -60,7 +60,7 @@
         /* Bahagian Tengah */
         .welcome-container {
             position: absolute;
-            top: 55%; /* Dilaraskan sedikit ke bawah kerana logo besar */
+            top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 15;
@@ -79,12 +79,11 @@
             white-space: nowrap;
         }
 
-        /* Container untuk Nama & Tujuan (Vertikal) */
         .visitor-info {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1vh;
+            gap: 1.5vh;
         }
 
         .editable {
@@ -110,7 +109,6 @@
             letter-spacing: 4px;
             opacity: 0.6;
             color: #bdc3c7;
-            margin-top: 10px;
         }
 
         .editable:focus {
@@ -119,18 +117,18 @@
             text-shadow: 0 0 20px rgba(255,255,255,0.5);
         }
 
-        /* Bar Info Bawah */
+        /* Bar Info Bawah dengan Ikon */
         .bottom-bar {
             position: relative;
             z-index: 20;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 3vw;
+            gap: 3.5vw;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 1vh 4vw;
+            padding: 1.2vh 4vw;
             border-radius: 50px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
@@ -138,14 +136,35 @@
             margin-bottom: 1vh;
         }
 
-        #clock { font-weight: 600; }
-        #date, .weather {
-            border-left: 1px solid rgba(255,255,255,0.3);
-            padding-left: 3vw;
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .weather { display: flex; align-items: center; gap: 10px; }
-        .weather-icon { font-size: 1.4vw; color: #ffdb58; }
+        /* Border pemisah antara item */
+        .info-item:not(:first-child) {
+            border-left: 1px solid rgba(255,255,255,0.3);
+            padding-left: 3.5vw;
+        }
+
+        .bar-icon {
+            font-size: 1.3vw;
+            color: #ffffff;
+            opacity: 0.9;
+        }
+
+        .weather-icon {
+            font-size: 1.5vw;
+            color: #ffdb58; /* Warna kuning emas untuk cuaca */
+        }
+
+        #clock { font-weight: 600; font-family: 'Courier New', Courier, monospace; }
+
+        @keyframes moveText {
+            0% { transform: translateY(-8px); }
+            100% { transform: translateY(8px); }
+        }
     </style>
 </head>
 <body onclick="requestFullScreen()">
@@ -166,12 +185,20 @@
     </div>
 
     <div class="bottom-bar">
-        <div id="clock">00:00:00</div>
-        <div id="date">Memuatkan...</div>
-        <div class="weather">
+        <div class="info-item">
+            <i class="fa-regular fa-clock bar-icon"></i>
+            <span id="clock">00:00:00</span>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-regular fa-calendar-days bar-icon"></i>
+            <span id="date">Memuatkan...</span>
+        </div>
+
+        <div class="info-item">
             <i id="w-icon" class="fas fa-cloud-sun weather-icon"></i>
             <span id="temp">--</span>°C
-            <span id="desc">Sila tunggu</span>
+            <span id="desc" style="opacity: 0.8;">Sila tunggu</span>
         </div>
     </div>
 
@@ -216,7 +243,6 @@
             }
         }
 
-        // Placeholder logic
         document.querySelectorAll('.editable').forEach(item => {
             item.addEventListener('focus', function() {
                 if (this.innerText === "NAMA PELAWAT" || this.innerText === "TUJUAN LAWATAN") {
